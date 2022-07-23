@@ -202,7 +202,10 @@ const Post = ({
         </p>
         <p className='text-sm font-normal text-gray-900'>{post.text}</p>
 
-        <PlainChip label={post.statement ? 'statement' : 'question'} className="mt-1" />
+        <PlainChip
+          label={post.statement ? 'statement' : 'question'}
+          className='mt-1'
+        />
         <PostActionBar post={post} />
       </div>
     </div>
@@ -229,6 +232,12 @@ const PlainChip = ({
   );
 };
 
+const DesktopNavBar = () => {
+  return (
+    <nav className='flex items-center justify-between py-5 bg-gray-900 text-gray-200 shadow-lg'></nav>
+  );
+};
+
 const Home: NextPage = (props) => {
   return (
     <>
@@ -239,6 +248,7 @@ const Home: NextPage = (props) => {
       </Head>
 
       <main className='container max-w-screen-lg mx-auto flex flex-col h-screen'>
+        <DesktopNavBar />
         <Heading />
 
         {statements.map((post) => {
