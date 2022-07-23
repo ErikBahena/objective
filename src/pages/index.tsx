@@ -235,7 +235,15 @@ const Post = ({
 }) => {
   return (
     <div className='py-4 px-5 flex mx-auto container border-t'>
-      <Image className='h-10 w-10 rounded-full' src={person.image} alt='' />
+      <div>
+        <Image
+          src={person.image}
+          alt='User Avatar'
+          width={'100'}
+          height={'100'}
+          className='rounded-full'
+        />
+      </div>
 
       <div className='ml-2'>
         <p className='text-sm font-bold text-gray-900 flex flex-wrap'>
@@ -284,30 +292,26 @@ const MobileNavBar = () => {
   return (
     <nav className='bg-white border-t w-full flex justify-between py-3.5 px-10 fixed bottom-0 text-sm font-normal text-gray-500'>
       {/* Home Button */}
-      <button className='hover:text-blue-400 '>
-        {currentPath === '/' ? (
-          <Link href='/'>
+      <Link href='/'>
+        <button className='hover:text-blue-400 '>
+          {currentPath === '/' ? (
             <BsHouseFill className='h-6 w-6 fill-blue-400' />
-          </Link>
-        ) : (
-          <Link href='/'>
+          ) : (
             <BsHouse className='h-6 w-6' />
-          </Link>
-        )}
-      </button>
+          )}
+        </button>
+      </Link>
 
       {/* Search Button */}
-      <button className='hover:text-blue-400 '>
-        {currentPath === '/search' ? (
-          <Link href='/search'>
+      <Link href='/search'>
+        <button className='hover:text-blue-400 '>
+          {currentPath === '/search' ? (
             <BsSearch className='h-6 w-6 fill-blue-400' />
-          </Link>
-        ) : (
-          <Link href='/search'>
+          ) : (
             <BsSearch className='h-6 w-6' />
-          </Link>
-        )}
-      </button>
+          )}
+        </button>
+      </Link>
     </nav>
   );
 };
