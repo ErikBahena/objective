@@ -290,29 +290,34 @@ const MobileNavBar = () => {
   const currentPath = router.pathname;
 
   return (
-    <nav className='bg-white border-t w-full flex justify-between py-3.5 px-10 fixed bottom-0 text-sm font-normal text-gray-500'>
-      {/* Home Button */}
-      <Link href='/'>
-        <button className='hover:text-blue-400 '>
-          {currentPath === '/' ? (
-            <BsHouseFill className='h-6 w-6 fill-blue-400' />
-          ) : (
-            <BsHouse className='h-6 w-6' />
-          )}
-        </button>
-      </Link>
+    <>
+      {/* offset the nav bar */}
+      <div className='h-12'></div>
+      
+      <nav className='bg-white border-t w-full flex justify-between py-3.5 px-10 fixed bottom-0 text-sm font-normal text-gray-500'>
+        {/* Home Button */}
+        <Link href='/'>
+          <button className='hover:text-blue-400 '>
+            {currentPath === '/' ? (
+              <BsHouseFill className='h-6 w-6 fill-blue-400' />
+            ) : (
+              <BsHouse className='h-6 w-6' />
+            )}
+          </button>
+        </Link>
 
-      {/* Search Button */}
-      <Link href='/search'>
-        <button className='hover:text-blue-400 '>
-          {currentPath === '/search' ? (
-            <BsSearch className='h-6 w-6 fill-blue-400' />
-          ) : (
-            <BsSearch className='h-6 w-6' />
-          )}
-        </button>
-      </Link>
-    </nav>
+        {/* Search Button */}
+        <Link href='/search'>
+          <button className='hover:text-blue-400 '>
+            {currentPath === '/search' ? (
+              <BsSearch className='h-6 w-6 fill-blue-400' />
+            ) : (
+              <BsSearch className='h-6 w-6' />
+            )}
+          </button>
+        </Link>
+      </nav>
+    </>
   );
 };
 
@@ -325,8 +330,7 @@ const Home: NextPage = (props) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main className='container max-w-screen-lg mx-auto flex flex-col h-screen'>
-        {/* <DesktopNavBar /> */}
+      <main className='container max-w-screen-lg mx-auto flex flex-col'>
         <Heading />
 
         {statements.map((post) => {
