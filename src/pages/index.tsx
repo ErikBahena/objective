@@ -9,11 +9,13 @@ import Link from 'next/link';
 // action bar imports
 import { FaHeartBroken } from 'react-icons/fa';
 import { HiOutlineAnnotation } from 'react-icons/hi';
+import { RiShareCircleLine } from 'react-icons/ri';
+import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
 
 const people = [
   {
     id: uuidv4(),
-    name: 'Calvin Hawkins',
+    fullName: 'Calvin Hawkins',
     username: 'chawkins',
     email: 'calvin.hawkins@example.com',
     image:
@@ -21,7 +23,7 @@ const people = [
   },
   {
     id: uuidv4(),
-    name: 'Kristen Ramos',
+    fullName: 'Kristen Ramos',
     username: 'kRam',
     email: 'kristen.ramos@example.com',
     image:
@@ -29,7 +31,7 @@ const people = [
   },
   {
     id: uuidv4(),
-    name: 'Ted Fox',
+    fullName: 'Ted Fox',
     username: 'tFox',
     email: 'ted.fox@example.com',
     image:
@@ -40,16 +42,32 @@ const people = [
 const statements = [
   {
     id: uuidv4(),
-    text: `Excepteur aute ut aute fugiat. Proident incididunt qui deserunt enim labore id officia ad excepteur consectetur cillum nulla. Anim id veniam voluptate mollit occaecat exercitation culpa nostrud mollit. Ullamco Lorem et ullamco incididunt quis cillum. Incididunt et nostrud ad culpa quis non. Laborum est excepteur amet cillum ipsum dolor esse enim.
-
-Lorem fugiat labore fugiat occaecat pariatur exercitation laboris ullamco est adipisicing duis occaecat commodo amet. Sint voluptate consectetur nostrud non deserunt Lorem in do quis magna aliqua incididunt culpa nulla. Consequat reprehenderit magna est et nostrud culpa pariatur do ea minim eu non sint Lorem. Irure id commodo Lorem et nulla qui culpa. Elit sint consectetur proident sint laborum pariatur ut tempor qui cillum laboris.
-
-`,
+    statement: true,
+    text: `Excepteur aute ut aute fugiat. Proident incididunt qui deserunt enim labore id officia ad excepteur consectetur cillum nulla.`,
     user: people[0],
-    // new date 5 hours ago
-    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7 * 4 * 12),
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5),
     likes: [people[0]?.id, people[1]?.id],
     dislikes: [people[2]?.id],
+
+    comments: [
+      {
+        id: uuidv4(),
+        text: 'I agree',
+        userID: people[0]?.id,
+        createdAt: new Date(),
+        likes: [people[1]?.id, people[2]?.id],
+        dislikes: [],
+      },
+    ],
+  },
+  {
+    id: uuidv4(),
+    question: true,
+    text: `Excepteur aute ut aute fugiat. Proident incididunt qui deserunt enim labore id officia ad excepteur consectetur?`,
+    user: people[1],
+    createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
+    likes: [people[0]?.id, people[2]?.id],
+    dislikes: [],
 
     comments: [
       {
@@ -67,9 +85,9 @@ Lorem fugiat labore fugiat occaecat pariatur exercitation laboris ullamco est ad
 // create a tailwind css heading component
 const Heading = () => {
   return (
-    <div className='border flex px-5 py-3 items-center'>
-      <h1 className='text-base font-normal flex-1 leading-6'>
-        Todays Top Statements
+    <div className='px-5 py-3'>
+      <h1 className='text-base font-semibold flex-1 leading-6'>
+        Todays Top Posts
       </h1>
     </div>
   );
@@ -119,61 +137,94 @@ const TimeStamp = ({ time }: { time: any }) => {
   );
 };
 
-const Post = () => {
-  const post = statements[0];
-  const person = people[0];
+const PostActionBar = ({ post }: { post: any }) => {
   const [liked, setLiked] = React.useState(false);
 
   return (
+    <div
+      title='action-bar'
+      className='flex justify-between w-5/6 py-2.5 text-sm font-normal text-gray-500'
+    >
+      <div className='flex items-center'>
+        <button className='hover:text-blue-400 '>
+          <HiOutlineAnnotation className='h-5 w-5 mr-1' />
+        </button>
+
+        {post.comments.length}
+      </div>
+
+      <div className='flex items-center'>
+        <button
+          className='hover:text-blue-400'
+          onClick={() => setLiked(!liked)}
+        >
+          {liked ? (
+            <FcLike className='h-5 w-5 mr-1' />
+          ) : (
+            <FcLikePlaceholder className='h-5 w-5 mr-1' />
+          )}
+        </button>
+        {post.likes.length}
+      </div>
+
+      <div className='flex items-center'>
+        <button className='hover:text-blue-400'>
+          <FaHeartBroken className='h-5 w-5 mr-1' />
+        </button>
+        {post.dislikes.length}
+      </div>
+
+      <button className='hover:text-blue-400 '>
+        <RiShareCircleLine className='h-5 w-5' />
+      </button>
+    </div>
+  );
+};
+
+const Post = ({
+  post,
+  person,
+}: {
+  post: { createdAt: Date; text: string; statement?: boolean };
+  person: any;
+}) => {
+  return (
     <div className='py-4 px-5 flex mx-auto container'>
-      <img className='h-10 w-10 rounded-full' src={person?.image} alt='' />
+      <img className='h-10 w-10 rounded-full' src={person.image} alt='' />
 
       <div className='ml-2'>
         <p className='text-sm font-bold text-gray-900 flex flex-wrap'>
-          {person?.name} 
+          {person.fullName} 
           <span>
-            <UserNameLink username={person?.username} />{' '}
-            <TimeStamp time={post?.createdAt} />
+            <UserNameLink username={person.username} />{' '}
+            <TimeStamp time={post.createdAt} />
           </span>
         </p>
-        <p className='text-sm font-normal text-gray-900'>{post?.text}</p>
+        <p className='text-sm font-normal text-gray-900'>{post.text}</p>
 
-        <div className='flex justify-between'>
-          <div className='flex'>
-            <button
-              className='text-sm font-normal text-gray-500 hover:text-blue-400'
-              onClick={() => setLiked(!liked)}
-            >
-              {liked ? 'Liked' : 'Like'}
-            </button>
-            <span className='text-sm font-normal text-gray-500'>
-              {post?.likes?.length}
-            </span>
-          </div>
-
-          <div className='flex items-center'>
-            <button className='text-sm font-normal text-gray-500 hover:text-blue-400'>
-              <FaHeartBroken className='h-5 w-5 mr-1' />
-            </button>
-            <span className='text-sm font-normal text-gray-500'>
-              {post?.dislikes?.length}
-            </span>
-          </div>
-
-          <div className='flex items-center'>
-            <button className='text-gray-500 hover:text-blue-400 '>
-              <HiOutlineAnnotation className='h-5 w-5 mr-1' />
-            </button>
-            <span className='text-sm font-normal text-gray-500'>
-              {post?.comments?.length}
-            </span>
-          </div>
-
-          <button className='text-sm font-normal text-gray-500 hover:text-blue-400 '>
-            Share
-          </button>
-        </div>
+        <PlainChip label={post.statement ? 'statement' : 'question'} className="mt-1" />
+        <PostActionBar post={post} />
       </div>
+    </div>
+  );
+};
+
+const PlainChip = ({
+  label,
+  className,
+}: {
+  label: string;
+  className?: string;
+}) => {
+  return (
+    <div
+      className={
+        'px-4 py-1 rounded-full border border-gray-300 text-gray-500 font-semibold text-sm w-max cursor-pointer active:bg-gray-300 transition duration-300 ease' +
+        ' ' +
+        className
+      }
+    >
+      {label}
     </div>
   );
 };
@@ -189,7 +240,14 @@ const Home: NextPage = (props) => {
 
       <main className='container max-w-screen-lg mx-auto flex flex-col h-screen'>
         <Heading />
-        <Post />
+
+        {statements.map((post) => {
+          const personWhoPosted = people.find(
+            (person) => person.id === post?.user?.id,
+          );
+
+          return <Post key={post.id} post={post} person={personWhoPosted} />;
+        })}
       </main>
     </>
   );
