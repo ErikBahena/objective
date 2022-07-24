@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 // mobile navbar imports
 import { BsHouse, BsHouseFill, BsSearch } from 'react-icons/bs';
+import { IoNotificationsOutline, IoNotifications } from 'react-icons/io5';
 import { useRouter } from 'next/router';
 
 const MobileNavBar = () => {
@@ -35,6 +36,17 @@ const MobileNavBar = () => {
               <BsSearch className='h-6 w-6 fill-blue-400' />
             ) : (
               <BsSearch className='h-6 w-6' />
+            )}
+          </button>
+        </Link>
+
+        {/* Notifications Button */}
+        <Link href='/notifications'>
+          <button className='hover:text-blue-400 '>
+            {currentPath === '/notifications' ? (
+              <IoNotifications className='h-6 w-6 fill-blue-400' />
+            ) : (
+              <IoNotificationsOutline className='h-6 w-6' />
             )}
           </button>
         </Link>
