@@ -295,7 +295,7 @@ const Home: NextPageWithLayout = () => {
 
       <main className='container max-w-screen-lg mx-auto flex flex-col'>
         <Heading />
-        <a href="" >Test on real website</a>
+        <a href="https://deploy-preview-391--hosted-player.netlify.app/?clientID=1000000000&eventID=2022071014" >Test on real website</a>
 
         {statements.map((post) => {
           const personWhoPosted = people.find(
