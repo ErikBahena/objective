@@ -301,7 +301,9 @@ const Home: NextPageWithLayout = () => {
         <div>
           <iframe
             id='invintus-player-frame'
-            src={`https://deploy-preview-391--hosted-player.netlify.app/?clientID=1000000000&eventID=2022071014`}
+            src={`https://deploy-preview-391--hosted-player.netlify.app/?clientID=1000000000&eventID=2022071014&referrer=${
+              typeof window !== 'undefined' ? document.referrer : ''
+            }`}
             width='100%'
             height='720px'
             frameBorder='0'
