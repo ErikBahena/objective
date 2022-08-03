@@ -296,18 +296,7 @@ const Home: NextPageWithLayout = () => {
       <main className='container max-w-screen-lg mx-auto flex flex-col'>
         <Heading />
 
-        <h3>I frame test</h3>
-
-        <div>
-          <iframe
-            id='invintus-player-frame'
-            src={`https://deploy-preview-391--hosted-player.netlify.app/?clientID=1000000000&eventID=2022071014`}
-            width='100%'
-            height='720px'
-            frameBorder='0'
-            allowFullScreen
-          ></iframe>
-        </div>
+        <Link href='https://test-iframe-production.up.railway.app/'> hello </Link>
 
         {statements.map((post) => {
           const personWhoPosted = people.find(
