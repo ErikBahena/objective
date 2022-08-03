@@ -296,7 +296,7 @@ const Home: NextPageWithLayout = () => {
       <main className='container max-w-screen-lg mx-auto flex flex-col'>
         <Heading />
 
-        <Link href='https://test-iframe-production.up.railway.app/'> hello </Link>
+        <Link href='https://deploy-preview-391--hosted-player.netlify.app/?clientID=1000000000&eventID=2022071014'> hello </Link>
 
         {statements.map((post) => {
           const personWhoPosted = people.find(
